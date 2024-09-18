@@ -37,19 +37,23 @@
         
         <a id="js-search-area">
           <button class="search-button js-search-button">
-            <img class="search-icon" src="images/icons/search-icon.png">
+            <img class="search-icon" src="/images/icons/search-icon.png">
           </button>
         </a>
       </div>
 
       <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href="orders.html">
+        <a class="orders-link header-link" href="/orders">
           <span class="returns-text">Returns</span>
           <span class="orders-text">& Orders</span>
         </a>
 
-        <a class="cart-link header-link" href="checkout.html">
-          <img class="cart-icon" src="images/icons/cart-icon.png">
+         <!-- 
+          note: change href="checkout.html" into href="/checkout" 
+          as we are using GoLang's built-in http routes
+        -->
+        <a class="cart-link header-link" href="/checkout">
+          <img class="cart-icon" src="/images/icons/cart-icon.png"> 
           <div class="cart-quantity js-cart-quantity"></div>
           <div class="cart-text">Cart</div>
         </a>
@@ -78,7 +82,7 @@
             </div>
       
             <div class="product-price">
-              {{.PriceCents}}
+              ${{.PriceDollar}}
             </div>
       
             <div class="product-quantity-container">
@@ -114,6 +118,6 @@
     </div>
   </body>
   
-  <script type="module" src="./static/scripts/amazon.js"></script>
+  <script type="module" src="/static/scripts/amazon.js"></script>
 </html>
 

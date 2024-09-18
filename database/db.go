@@ -35,6 +35,10 @@ func GetRatingImage(rating float64) string {
     return fmt.Sprintf("./images/ratings/rating-%d.png", scaledRating)
 }
 
+func GetPriceCents(price int) string {
+    return fmt.Sprintf("%.2f", float64(price)/100.0)
+}
+
 func GetProducts() ([]Product, error) {
     query := `
         SELECT 
@@ -78,6 +82,7 @@ func GetProducts() ([]Product, error) {
         }
         // convert rating from numbers to local links
         product.RatingImages = GetRatingImage(product.RatingStars)
+        product.PriceDollar = GetPriceCents(product.PriceCents)
         
         products = append(products, product)
     }
@@ -97,5 +102,8 @@ type Product struct {
     SizeChartLink   sql.NullString
     InstructionsLink sql.NullString
     WarrantyLink    sql.NullString
+
+    //customized attributes
     RatingImages    string
+    PriceDollar     string
 }
