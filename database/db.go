@@ -4,6 +4,8 @@ import (
     "database/sql"
     _ "github.com/lib/pq"
     "log"
+    "fmt"
+    "math"
 )
 
 var DB *sql.DB
@@ -15,6 +17,22 @@ func Connect(connStr string) {
     if err != nil {
         log.Fatal(err)
     }
+}
+
+// Function to map rating to image file
+func GetRatingImage(rating float64) string {
+    // Scale and round the rating to the nearest multiple of 5
+    scaledRating := int(math.Round(rating * 10 / 5) * 5)
+    
+    // Ensure the rating stays within the range of 0 to 50
+    if scaledRating < 0 {
+        scaledRating = 0
+    } else if scaledRating > 50 {
+        scaledRating = 50
+    }
+
+    // Format the image file name
+    return fmt.Sprintf("./images/ratings/rating-%d.png", scaledRating)
 }
 
 func GetProducts() ([]Product, error) {
@@ -58,6 +76,9 @@ func GetProducts() ([]Product, error) {
         if err != nil {
             return nil, err
         }
+        // convert rating from numbers to local links
+        product.RatingImages = GetRatingImage(product.RatingStars)
+        
         products = append(products, product)
     }
 
@@ -76,4 +97,5 @@ type Product struct {
     SizeChartLink   sql.NullString
     InstructionsLink sql.NullString
     WarrantyLink    sql.NullString
+    RatingImages    string
 }
