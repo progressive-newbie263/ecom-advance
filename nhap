@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>Advanced E-Commerce</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <div class="products">
+        {{range .}}
+        <div class="product">
+            <img src="{{.Image}}" alt="{{.Name}}">
+            <h2>{{.Name}}</h2>
+            <p>{{.ProductType}}</p>
+            <p>${{.PriceCents}}</p>
+        </div>
+        {{end}}
+    </div>
+</body>
+</html>
